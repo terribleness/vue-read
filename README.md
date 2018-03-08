@@ -1,5 +1,17 @@
 <h2>Vue.js 2.4.4版本，源码解读</h2>
 
+<h2>提纲分为这五章：</h2>
+<h3>1、Vue构造函数：实例方法和静态方法</h3>
+<h3>2、Vue的响应原理：Observe、Watcher、Dep关系</h3>
+<h3>3、Vue的编译过程：template、AST、Render过程</h3>
+<h3>4、Vue的虚拟节点：VNode、patch算法</h3>
+<h3>5、Vue的异步队列：nextTick调度</h3>
+
+<br/>
+<br/>
+<br/>
+<h3>一、Vue构造函数：实例方法和静态方法</h3>
+
 <a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/2" target="_blank"><h3>Vue运行时---第一步扩展实例方法（链接）</h3></a>
 <p>Vue扩展实例方法流程为：</p>
 <p>1、	定义function Vue()</p>
