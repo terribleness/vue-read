@@ -12,7 +12,7 @@
 <br/>
 <h3>一、Vue构造函数：实例方法和静态方法</h3>
 
-<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/2" target="_blank"><h4>Vue运行时---第一步扩展实例方法（链接）</h4></a>
+<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/2" target="_blank"><h4>Vue运行时---第一步扩展实例方法（点击链接）</h4></a>
 <p>Vue扩展实例方法流程为：</p>
 <p>1、	定义function Vue()</p>
 <p>2、	initMixin扩展vm._init</p>
@@ -21,7 +21,7 @@
 <p>5、	lifecycleMixin扩展vm._update、wm.$forceUpdate、vm.$destroy</p>
 <p>6、	renderMixin扩展vm.$nextTick、vm._render和一些工具方法</p>
 
-<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/3" target="_blank"><h4>Vue运行时---第二步扩展静态方法（链接）</h4></a>
+<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/3" target="_blank"><h4>Vue运行时---第二步扩展静态方法（点击链接）</h4></a>
 <p>1、扩展了工具方法Vue.util.warn、Vue.util.extend、Vue.util.mergeOptions、Vue.util.defineReactive</p>
 <p>2、扩展了Vue.set 、Vue.delete、Vue.nextTick</p>
 <p>3、扩展了Vue.options.conponents、Vue.options.directives、Vue.options.filters</p>
