@@ -1,6 +1,6 @@
 <h2>Vue.js 2.4.4版本，源码解读</h2>
 
-<a href="https://github.com/terribleness/vue-read/issues/2" target="_blank"><h3>Vue运行时---第一步扩展实例方法</h3></a>
+<a href="https://github.com/terribleness/vue-read/issues/2" target="_blank"><h3>Vue运行时---第一步扩展实例方法（链接）</h3></a>
 <p>Vue扩展实例方法流程为：</p>
 <p>1、	定义function Vue()</p>
 <p>2、	initMixin扩展vm._init</p>
