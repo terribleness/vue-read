@@ -37,3 +37,15 @@
 <p>12、‘runtime/index’中使用了平台相关的指令和组件覆盖之前生成的Vue.options.directives和Vue.options.components</p>
 <p>13、‘runtime/index’中增加实例方法vm.patch</p>
 <p>14、‘runtime/index’中扩展了实例方法vm.$mounted</p>
+
+<br/>
+<br/>
+<br/>
+<h2>二、Vue的响应原理：Observe、Watcher、Dep关系</h2>
+
+<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/4" target="_blank"><h3>Vue的响应原理：Observe、Watcher、Dep关系（点击链接）</h3></a>
+<h4><span style="color:red;">总结</span>Vue扩展实例方法流程为：</h4>
+<p>1、	每个data中属性元素会有一个闭包Dep的实例，里面存放Watcher实例</p>
+<p>2、	当template编译为render函数时，会调用属性的get方法，将每一次调用都生成一个watcher实例，并压入dep中，产生订阅效果。</p>
+<p>3、	当设置data中属性值的时候，调用属性的set方法通知所有订阅该属性的元素更新</p>
+<p>4、	而且props，computed，watch内同理是增加watcher产生订阅和发布的效果。</p>
