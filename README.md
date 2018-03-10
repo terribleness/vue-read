@@ -49,3 +49,13 @@
 <p>2、	当template编译为render函数时，会调用属性的get方法，将每一次调用都生成一个watcher实例，并压入dep中，产生订阅效果。</p>
 <p>3、	当设置data中属性值的时候，调用属性的set方法通知所有订阅该属性的元素更新</p>
 <p>4、	而且props，computed，watch内同理是增加watcher产生订阅和发布的效果。</p>
+<br/>
+<br/>
+<br/>
+<h2>三、Vue的编译过程：template、AST、Render过程</h2>
+
+<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/5" target="_blank"><h3>Vue的编译过程：template、AST、Render过程（点击链接）</h3></a>
+<p>1、	template先判断是否存在render函数，如果不存在则判断template模板，最后判断el标签。</p>
+<p>2、	const ast = parse（template.trim(),options）是生成抽象语法树。</p>
+<p>3、	optimize（ast,options）优化AST树。</p>
+<p>4、	const code = generate(ast, options)这一句之后，生成render函数。</p>
