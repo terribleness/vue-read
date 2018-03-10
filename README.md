@@ -8,7 +8,7 @@
 <h3>5、Vue的异步队列：nextTick调度</h3>
 
 <br/>
-<img src="https://github.com/terribleness/vue-read/blob/master/progress.png"/>
+<img src="https://user-images.githubusercontent.com/37056647/37242039-a257ca6c-249d-11e8-9fca-a86d504c6dfe.png"/>
 <br/>
 <br/>
 <h2>一、Vue构造函数：实例方法和静态方法</h2>
