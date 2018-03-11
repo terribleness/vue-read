@@ -59,3 +59,11 @@
 <p>2、	const ast = parse（template.trim(),options）是生成抽象语法树。</p>
 <p>3、	optimize（ast,options）优化AST树。</p>
 <p>4、	const code = generate(ast, options)这一句之后，生成render函数。</p>
+
+<br/>
+<br/>
+<br/>
+<h2>三、Vue的虚拟节点：VNode、patch算法</h2>
+
+<a style="text-decoration: underline;" href="https://github.com/terribleness/vue-read/issues/6" target="_blank"><h3>Vue的虚拟节点Vnode过程（点击链接）</h3></a>
+<p>清晰描述了“tempalte”转化为“ast抽象语法树”转化为“render函数”转化为“vnode虚拟树”的过程。</p>
