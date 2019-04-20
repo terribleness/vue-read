@@ -1,0 +1,115 @@
+using ETModel;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ETHotfix
+{
+    /// <summary>
+    /// 四种消息类型封装：AMHandler、AMRpcHandler、AMActorHandler、AMRpcActorHandler
+    /// </summary>
+    public class MessageHelper
+    {
+        /// <summary>
+        /// 单向通信，向任一服务器发送消息
+        /// 接收端例子：
+        /// [MessageHandler(AppType.Gate)]
+        /// public class C2G_ReturnLobby_NttHandler : AMHandler<C2G_ReturnLobby_Ntt>
+        /// {
+        ///    protected override async void Run(Session session, C2G_ReturnLobby_Ntt message)
+        ///    {
+        ///    }
+        /// }
+        /// </summary>
+        /// <param name="message">IRequest</param>
+        /// <param name="appType">AppType</param>
+        public static void Send2Session(IMessage message, AppType appType)
+        {
+            //随机分配appType服务器
+            Session session = GetRandomSession(appType);
+            session.Send(message);
+        }
+
+        /// <summary>
+        /// 双向通信，向任一服务器发送消息，并接收返回消息
+        /// 接收端例子：
+        /// [MessageHandler(AppType.Gate)]
+        /// public class C2G_LoginGate_ReqHandler : AMRpcHandler<C2G_LoginGate_Req, G2C_LoginGate_Ack>
+        /// {
+        ///    protected override async void Run(Session session, C2G_LoginGate_Req message, Action<G2C_LoginGate_Ack> reply)
+        ///    {
+        ///    }
+        /// }
+        /// </summary>
+        /// <param name="message">IRequest</param>
+        /// <param name="appType">AppType</param>
+        /// <returns></returns>
+        public static Task<IResponse> Call2Session(IRequest request, AppType appType)
+        {
+            //随机分配appType服务器
+            Session session = GetRandomSession(appType);
+            return session.Call(request);
+        }
+
+        /// <summary>
+        /// 单向通信，向指定Actor发送消息，会从Location服务器查找对象
+        /// 接收端例子：
+        /// [MessageHandler(AppType.Gate)]
+        /// public class Actor_MatchSucess_NttHandler : AMActorHandler<Player, Actor_MatchSucess_Ntt>
+        /// {
+        ///    protected override void Run(Player player, Actor_MatchSucess_Ntt message)
+        ///    {
+        ///    }
+        /// }
+        /// </summary>
+        /// <param name="actorId">ComponentFactory.Create(id)，actorId即create传入的id值，location根据actorId查找对象所在服务器，再根据instanceId还原对象</param>
+        /// <param name="request">IActorMessage</param>
+        public static void Send2Actor(long actorId, IActorMessage message)
+        {
+            ActorMessageSender actorProxy = Game.Scene.GetComponent<ActorMessageSenderComponent>().Get(actorId);
+            actorProxy.Send(message);
+        }
+
+        /// <summary>
+        /// 双向通信，向指定Actor发送消息，并接收返回消息，会从Location服务器查找对象
+        /// 接收端例子：
+        /// [MessageHandler(AppType.Gate)]
+        /// public class Actor_MatchSucess_NttHandler : AMActorHandler<Player, Actor_MatchSucess_Req, Actor_MatchSucess_Ack>
+        /// {
+        ///    protected override void Run(Player player, Actor_MatchSucess_Req message, Action<Actor_MatchSucess_Ack> reply)
+        ///    {
+        ///    }
+        /// }
+        /// </summary>
+        /// <param name="actorId">ComponentFactory.Create(id)，actorId即create传入的id值，location根据actorId查找对象所在服务器，再根据instanceId还原对象</param>
+        /// <param name="message">IActorRequest</param>
+        public static Task<IActorResponse> Call2Actor(long actorId, IActorRequest request)
+        {
+            ActorMessageSender actorProxy = Game.Scene.GetComponent<ActorMessageSenderComponent>().Get(actorId);
+            return actorProxy.Call(request);
+        }
+
+        /// <summary>
+        /// 获取任一类型服务器配置
+        /// </summary>
+        /// <param name="appType"></param>
+        /// <returns>Session</returns>
+        private static Session GetRandomSession(AppType appType)
+        {
+            var configList = new List<StartConfig>();
+            StartConfig[] startConfigs = Game.Scene.GetComponent<StartConfigComponent>().GetAll();
+            foreach (StartConfig config in startConfigs)
+            {
+                if (!config.AppType.Is(appType))
+                {
+                    continue;
+                }
+                configList.Add(config);
+            }
+            int n = RandomHelper.RandomNumber(0, configList.Count);
+            StartConfig startConfig = configList[n];
+            return Game.Scene.GetComponent<NetInnerComponent>().Get(startConfig.GetComponent<InnerConfig>().IPEndPoint);
+        }
+    }
+}
